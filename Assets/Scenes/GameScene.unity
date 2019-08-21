@@ -1534,6 +1534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionScript: {fileID: 482212712}
+  correct_answer: 
   correct_image: {fileID: 1267163562}
   incorrect_image: {fileID: 272098702}
 --- !u!1 &685413613
