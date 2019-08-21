@@ -7,7 +7,7 @@ public class GameSceneController : MonoBehaviour
     [SerializeField]
     private QuestionScript questionScript;
 
-    private string correct_answer = null;
+    public string correct_answer = null;
 
     public GameObject correct_image;
     public GameObject incorrect_image;

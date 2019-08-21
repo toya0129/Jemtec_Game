@@ -104,6 +104,7 @@ public class QuestionScript : MonoBehaviour
             case 1:
             case 2:
             case 3:
+                Debug.Log("Partially");
                 gameSceneController.Correct_Answer = "Partially";
                 for (int x = 0; x < now_figure.Count; x++)
                 {
@@ -180,6 +181,7 @@ public class QuestionScript : MonoBehaviour
             case 4:
             case 5:
             case 6:
+                Debug.Log("yes");
                 gameSceneController.Correct_Answer = "Yes";
                 generate = now_figure;
                 break;
@@ -187,6 +189,7 @@ public class QuestionScript : MonoBehaviour
             case 7:
             case 8:
             case 9:
+                Debug.Log("no");
                 gameSceneController.Correct_Answer = "No";
                 int generate_rand = Random.Range(0, 25);
                 generate.Add(generate_rand);
@@ -270,6 +273,8 @@ public class QuestionScript : MonoBehaviour
             panel[row, column].GetComponent<Image>().color = new Color32(255, 0, 0, 255);
         }
 
+        remember_timer_text.transform.parent.gameObject.SetActive(true);
+        remember_timer_text.GetComponent<Text>().enabled = false;
         StartCoroutine(TimerStart(start_timer, start_timer_text, 1));
     }
 
@@ -284,11 +289,13 @@ public class QuestionScript : MonoBehaviour
                 if(now[n] == gene[g])
                 {
                     match += 1;
+                    break;
                 }
             }
         }
 
-        if (match >= gene.Count)
+        Debug.Log("match = " + match.ToString());
+        if (match == now.Count)
         {
             return false;
         }
@@ -328,6 +335,10 @@ public class QuestionScript : MonoBehaviour
         {
             case 0:
                 SetGenerateFigure(now_question);
+                break;
+            case 1:
+                remember_timer_text.transform.parent.gameObject.SetActive(false);
+                remember_timer_text.GetComponent<Text>().enabled = true;
                 break;
             case 2:
                 gameSceneController.correct_image.SetActive(false);
