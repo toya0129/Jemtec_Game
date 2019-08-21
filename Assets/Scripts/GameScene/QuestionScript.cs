@@ -14,6 +14,7 @@ public class QuestionScript : MonoBehaviour
     [SerializeField]
     private GameObject[,] panel = new GameObject[5,5];
 
+    // 先頭2要素が部分一致の際変更される
     private List<string> correct_figure = new List<string>()
     {
         "13,16,6,7,11,12",
@@ -102,6 +103,7 @@ public class QuestionScript : MonoBehaviour
             case 0:
             case 1:
             case 2:
+            case 3:
                 gameSceneController.Correct_Answer = "Partially";
                 for (int x = 0; x < now_figure.Count; x++)
                 {
@@ -111,7 +113,7 @@ public class QuestionScript : MonoBehaviour
                 int remove_panel = generate[Random.Range(0, 1)];
                 generate.Remove(remove_panel);
 
-                int add_rand = Random.Range(0, 3);
+                int add_rand = Random.Range(0, 2);
 
                 while (add_rand != 0)
                 {
@@ -137,7 +139,7 @@ public class QuestionScript : MonoBehaviour
                     }
 
                     bool add_flag = false;
-                    if (change_panel < 0 || change_panel > 25)
+                    if (change_panel < 0 || change_panel > 24)
                     {
 
                     }
@@ -168,22 +170,95 @@ public class QuestionScript : MonoBehaviour
                     }
 
                 }
+
+                if (!CheckGenerate(now_figure, generate))
+                {
+                    gameSceneController.Correct_Answer = "Yes";
+                }
                 break;
             // 完全に一致
-            case 3:
             case 4:
             case 5:
+            case 6:
                 gameSceneController.Correct_Answer = "Yes";
                 generate = now_figure;
                 break;
             // 全く違う
-            case 6:
             case 7:
             case 8:
             case 9:
                 gameSceneController.Correct_Answer = "No";
+                int generate_rand = Random.Range(0, 25);
+                generate.Add(generate_rand);
+
+                while(generate.Count < now_figure.Count)
+                {
+                    bool generate_flag = false;
+                    int direction_rand = Random.Range(0, 4);
+                    switch (direction_rand)
+                    {
+                        case 0:
+                            generate_rand -= 5;
+                            break;
+                        case 1:
+                            generate_rand += 1;
+                            break;
+                        case 2:
+                            generate_rand += 5;
+                            break;
+                        case 3:
+                            generate_rand -= 1;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (generate_rand < 0 || generate_rand > 24)
+                    {
+                        switch (direction_rand)
+                        {
+                            case 0:
+                                generate_rand += 5;
+                                break;
+                            case 1:
+                                generate_rand -= 1;
+                                break;
+                            case 2:
+                                generate_rand -= 5;
+                                break;
+                            case 3:
+                                generate_rand += 1;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        for (int g = 0; g < generate.Count; g++)
+                        {
+                            if (generate[g] == generate_rand)
+                            {
+                                generate_flag = false;
+                                break;
+                            }
+                            generate_flag = true;
+                        }
+                    }
+
+                    if (generate_flag)
+                    {
+                        generate.Add(generate_rand);
+                    }
+                }
+
+                if (!CheckGenerate(now_figure, generate))
+                {
+                    gameSceneController.Correct_Answer = "Yes";
+                }
                 break;
             default:
+                gameSceneController.Correct_Answer = "Yes";
                 generate = now_figure;
                 break;
         }
@@ -198,9 +273,32 @@ public class QuestionScript : MonoBehaviour
         StartCoroutine(TimerStart(start_timer, start_timer_text, 1));
     }
 
+    public bool CheckGenerate(List<int> now, List<int> gene)
+    {
+        int match = 0;
+
+        for(int n = 0; n < now.Count; n++)
+        {
+            for(int g = 0; g < gene.Count; g++)
+            {
+                if(now[n] == gene[g])
+                {
+                    match += 1;
+                }
+            }
+        }
+
+        if (match >= gene.Count)
+        {
+            return false;
+        }
+        return true;
+    }
+
     public void NextInterval()
     {
         correct_figure.RemoveAt(now_question);
+        now_figure = new List<int>();
         StartCoroutine(TimerStart(start_timer, remember_timer_text, 2));
     }
 
