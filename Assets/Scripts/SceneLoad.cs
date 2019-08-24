@@ -11,6 +11,10 @@ public class SceneLoad : MonoBehaviour
                 SceneManager.LoadScene("TitleScene");
                 break;
             case 1:
+                if (GameObject.Find("GameController") != null)
+                {
+                    Destroy(GameObject.Find("GameController"));
+                }
                 SceneManager.LoadScene("LevelSelectScene");
                 break;
             case 2:

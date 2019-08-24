@@ -43,7 +43,7 @@ public class QuestionScript : MonoBehaviour
     [SerializeField]
     private GameObject start_timer_text;
 
-    private int[] remember_timer = { 3, 5, 7 };
+    private int[] remember_timer = { 7, 5, 3 };
     private int start_timer = 3;
 
     [SerializeField]
@@ -410,8 +410,8 @@ public class QuestionScript : MonoBehaviour
     {
         if (max_question == used_figure_number.Count)
         {
-
-        }
+			gameSceneController.GameFinish();
+		}
         else
         {
             now_figure = new List<int>();
@@ -460,4 +460,15 @@ public class QuestionScript : MonoBehaviour
         }
         yield break;
     }
+
+    #region getter and setter
+    public int[] Remember_Time
+    {
+        get { return remember_timer; }
+    }
+    public int MaxQuestion
+    {
+        get { return max_question; }
+    }
+    #endregion
 }
