@@ -5,8 +5,16 @@ using PlayerPrefs = PreviewLabs.PlayerPrefs;
 
 public class Result : MonoBehaviour
 {
+    private GameController gameController;
+
     int gameScore = 0;
-    
+
+    private void Awake()
+    {
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        gameScore = (int)gameController.Score;
+    }
+
     void Start()
     {
         List<int> scoreList = new List<int>();
