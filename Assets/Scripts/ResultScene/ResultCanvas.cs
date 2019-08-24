@@ -16,8 +16,8 @@ public class ResultCanvas : MonoBehaviour
     void Start()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        score_text.text = "Score = " + gameController.Score.ToString();
-        time_text.text = "Tiem = " + gameController.Time.ToString();
+        score_text.text = "Score = " + gameController.Score.ToString() + "点";
+        time_text.text = "Time = " + gameController.Time.ToString() + "秒";
     }
 
     // Update is called once per frame
