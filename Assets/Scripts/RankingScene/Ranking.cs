@@ -14,7 +14,7 @@ public class Ranking : MonoBehaviour
     void Start()
     {
         for(int i = 0; i < 5; i++){
-            this.rankingTextList[i].text = PlayerPrefs.GetInt("ranking" + i.ToString(), 0).ToString();
+            this.rankingTextList[i].text = "Score = " + PlayerPrefs.GetInt("ranking" + i.ToString(), 0).ToString() + "点";
         }
     }
 }
