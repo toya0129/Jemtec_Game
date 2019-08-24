@@ -15,6 +15,7 @@ public class Ranking : MonoBehaviour
     {
         for(int i = 0; i < 5; i++){
             this.rankingTextList[i].text = "Score = " + PlayerPrefs.GetInt("ranking" + i.ToString(), 0).ToString() + "点";
+            this.rankingText_time[i].text = "Time = " + PlayerPrefs.GetFloat("time" + i.ToString(), 0.0f).ToString() + "秒";
         }
     }
 }
