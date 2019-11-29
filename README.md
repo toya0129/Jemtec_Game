@@ -14,6 +14,6 @@
 <img src="https://user-images.githubusercontent.com/32384126/69840970-bfca6080-12a0-11ea-8a97-f819589bb877.png" title="title_image">
 
 ## 開発者
-- leader: [ryotamorohashi](https://github.com/ryotamorohashi)
+- director: [ryotamorohashi](https://github.com/ryotamorohashi)
 - programer: [toya0129](https://github.com/toya0129) and [Cherenco](https://github.com/Cherenco)
 - designer
